@@ -77,7 +77,7 @@ public class GameLoop {
     }
 
     private String menuInfo() {
-        return "Ressources | " + "Bois : " +resources.getWood() + " | Pierre : "+resources.getStone() + " | Fer : " + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood() + "\n\n" +
+        return "Ressources | " + "Bois : " +resources.getWood() + " | Pierre : "+resources.getStone() + " | Fer : " + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood() + " | population : " + villagers.size()+ "\n\n" +
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +

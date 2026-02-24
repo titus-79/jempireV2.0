@@ -9,9 +9,8 @@ public class Villagers {
     private static final List<String> villagerSurname = List.of("Martin","Bernard","Thomas","Petit","Robert","Richard","Durand","Dubois","Moreau","Laurent","Simon","Michel","Lefebvre","Leroy","Roux","David","Bertrand","Morel","Fournier","Girard","Bonnet","Dupont","Lambert","Fontaine","Rousseau");
 
     public Villagers() {
-        this.name = name;
-        this.surname = surname;
         generateName();
+        System.out.println("Nouveau villageois : " + name + " " + surname);
     }
 
     private void generateName(){
