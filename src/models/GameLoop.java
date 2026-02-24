@@ -1,5 +1,8 @@
 package models;
 
+import models.units.Villagers;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class GameLoop {
@@ -9,9 +12,11 @@ public class GameLoop {
     private boolean victory = false;
     private boolean defeat = false;
     private Scanner myScan = new Scanner(System.in);
+    private List<Villagers> villagers;
 
-    public GameLoop(Resources resources) {
+    public GameLoop(Resources resources, List<Villagers> villagers) {
         this.resources = resources;
+        this.villagers = villagers;
     }
 
     public void gameLoop(){
