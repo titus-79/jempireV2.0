@@ -20,8 +20,21 @@ public class Resources {
         return wood;
     }
 
-    public void setWood(int wood) {
-        this.wood = wood;
+    public void inceaseWood(int wood) {
+        if (wood < 0) {
+            System.out.println("valeur bois négative");
+        }else {
+            this.wood += wood;
+        }
+    }
+
+    public void decreaseWood(int wood) {
+        // if (wood < resourcePlayer) {
+        //     System.out.println("Vous n'avez pas assez de bois");
+        // }else {
+        //     this.wood -= wood;
+        // }
+        this.wood -= wood;
     }
 
     public int getStone() {
