@@ -29,7 +29,7 @@ public class Resources {
     }
 
     public void decreaseWood(int wood) {
-        if (wood < this.wood) {
+        if (wood > this.wood) {
             System.out.println("Vous n'avez pas assez de bois");
         } else {
             this.wood -= wood;
@@ -45,7 +45,7 @@ public class Resources {
     }
 
     public void decreaseStone(int stone) {
-        if (stone < this.stone) {
+        if (stone > this.stone) {
             System.out.println("Vous n'avez pas assez de pierre");
         } else {
             this.stone -= stone;
@@ -61,7 +61,7 @@ public class Resources {
     }
 
     public void decreaseFood(int food) {
-        if (food < this.food) {
+        if (food > this.food) {
             System.out.println("Vous n'avez pas assez de nourriture");
         } else {
             this.food -= food;
@@ -81,7 +81,7 @@ public class Resources {
     }
 
     public void decreaseIron(int iron) {
-        if (iron < this.iron) {
+        if (iron > this.iron) {
             System.out.println("Vous n'avez pas assez de fer");
         } else {
             this.iron -= iron;
@@ -101,7 +101,7 @@ public class Resources {
     }
 
     public void decreaseGold(int gold) {
-        if (gold < this.gold) {
+        if (gold > this.gold) {
             System.out.println("Vous n'avez pas assez d'or");
         } else {
             this.gold -= gold;
