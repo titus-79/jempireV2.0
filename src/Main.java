@@ -1,3 +1,4 @@
+import controller.GameLoop;
 import models.*;
 
 public class Main {

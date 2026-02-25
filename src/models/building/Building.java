@@ -7,12 +7,10 @@ public abstract class Building {
     private Resources resourcesCost;
     private int improvement;
 
-    public Building(Resources resourcesCost) {
-        this.resourcesCost = resourcesCost;
+    public Building() {
     }
 
-    public Building(Resources resourcesCost, int improvement) {
-        this.resourcesCost = resourcesCost;
+    public Building(int improvement) {
         this.improvement = improvement;
     }
 

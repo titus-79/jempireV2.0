@@ -1,24 +1,21 @@
 package models.building;
 
-import models.Resources;
+public class Mine extends Building {
 
-public class Mine extends Building{
+    public static final int WOOD_COST = 15;
+    public static final int STONE_COST = 10;
+    public static final int STONE_PRODUCT = 10;
+    public static final int IRON_PRODUCT = 10;
 
-    int woodCost = 15;
-    int stoneCost = 10;
-
-    public Mine(Resources ressources) {
-        super(ressources);
+    public Mine() {
         this.setImprovement(1);
-        ressources.decreaseWood(woodCost);
-        ressources.decreaseStone(stoneCost);
     }
 
-    public void getRessourceStone(){
-        getResourcesCost().increaseStone(10);
+    public void setRessourceStone() {
+        getResourcesCost().increaseStone(STONE_PRODUCT);
     }
 
-    public void getRessourceIron(){
-        getResourcesCost().increasedIron(10);
+    public void SetRessourceIron() {
+        getResourcesCost().increasedIron(IRON_PRODUCT);
     }
 }

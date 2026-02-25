@@ -1,5 +1,6 @@
-package models;
+package controller;
 
+import models.Resources;
 import models.building.Building;
 import models.building.House;
 import models.units.Soldier;
@@ -20,11 +21,11 @@ public class GameLoop {
     private List<Building> villages;
 
     public GameLoop() {
-        this.resources = new Resources(20, 10, 10, 0, 10);
+        this.resources = new Resources(50, 10, 10, 0, 10);
         this.villagers = new ArrayList<>();
         villagers.add(new Villagers(resources));
         this.villages = new ArrayList<>();
-        villages.add(new House(resources));
+        villages.add(new House());
     }
 
     public void gameLoop() {
@@ -34,14 +35,6 @@ public class GameLoop {
             System.out.println("Tour " + turn);
             finish = GameView.menu(myScan, resources, villagers, villages);
             turn++;
-        }
-    }
-
-    public void buildHouse() {
-        if (resources.getWood() >= 10) {
-            villages.add(new House(resources));
-        } else {
-            System.out.println("Pas assez de bois !");
         }
     }
 

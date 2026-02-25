@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import controller.BuildingService;
+import controller.GameLoop;
+
 public class GameView {
 
-    public static boolean menu(Scanner myScan, Resources resources, List<Villagers> villagers, List<Building> buildings) {
+    public static boolean menu(Scanner myScan, Resources resources, List<Villagers> villagers,
+            List<Building> buildings) {
         boolean endTurn = false;
         do {
             System.out.println(menuInfo(resources, villagers, buildings));
@@ -57,82 +61,100 @@ public class GameView {
         }
     }
 
-    private static void menuCreateBuilding(Scanner myScan, Resources ressources, List<Building> buildings) {
+    private static void menuCreateBuilding(Scanner myScan, Resources resources, List<Building> buildings) {
         System.out.println(menuCreateBuildingInfo());
         boolean isContruct = false;
         int choiceCreation = myScan.nextInt();
         switch (choiceCreation) {
             case 1:
-                buildings.add(new House(ressources));
+                House house = BuildingService.buildHouse(resources);
+                if (house != null) {
+                    buildings.add(house);
+                }
                 break;
             case 2:
-                for (Building building : buildings){
+                for (Building building : buildings) {
                     if (building instanceof Farm) {
                         isContruct = true;
                         break;
                     }
                 }
-                if (isContruct){
+                if (isContruct) {
                     System.out.println("Ferme déjà contruite");
 
-                }else {
-                    buildings.add(new Farm(ressources));
+                } else {
+                    Farm farm = BuildingService.buildFarm(resources);
+                    if (farm != null) {
+                        buildings.add(farm);
+                    }
                 }
                 break;
             case 3:
-                for (Building building : buildings){
+                for (Building building : buildings) {
                     if (building instanceof Mine) {
                         isContruct = true;
                         break;
                     }
                 }
-                if (isContruct){
+                if (isContruct) {
                     System.out.println("Mine déjà contruite");
 
-                }else {
-                    buildings.add(new Mine(ressources));
+                } else {
+                    Mine mine = BuildingService.buildMine(resources);
+                    if (mine != null) {
+                        buildings.add(mine);
+                    }
                 }
                 break;
             case 4:
-                for (Building building : buildings){
+                for (Building building : buildings) {
                     if (building instanceof Barrack) {
                         isContruct = true;
                         break;
                     }
                 }
-                if (isContruct){
+                if (isContruct) {
                     System.out.println("Caserne déjà contruite");
 
-                }else {
-                    buildings.add(new Barrack(ressources));
+                } else {
+                    Barrack barrack = BuildingService.buildBarrack(resources);
+                    if (barrack != null) {
+                        buildings.add(barrack);
+                    }
                 }
                 break;
             case 5:
-                for (Building building : buildings){
+                for (Building building : buildings) {
                     if (building instanceof Workshop) {
                         isContruct = true;
                         break;
                     }
                 }
-                if (isContruct){
+                if (isContruct) {
                     System.out.println("Atelier déjà contruite");
 
-                }else {
-                    buildings.add(new Workshop(ressources));
+                } else {
+                    Workshop workshop = BuildingService.buildWorkshop(resources);
+                    if (workshop != null) {
+                        buildings.add(workshop);
+                    }
                 }
                 break;
             case 6:
-                for (Building building : buildings){
+                for (Building building : buildings) {
                     if (building instanceof Wall) {
                         isContruct = true;
                         break;
                     }
                 }
-                if (isContruct){
+                if (isContruct) {
                     System.out.println("Mur déjà contruite");
 
-                }else {
-                    buildings.add(new Wall(ressources));
+                } else {
+                    Wall wall = BuildingService.buildWall(resources);
+                    if (wall != null) {
+                        buildings.add(wall);
+                    }
                 }
                 break;
             case 0:
@@ -145,10 +167,10 @@ public class GameView {
 
     private static String menuInfo(Resources resources, List<Villagers> villagers, List<Building> buildings) {
 
-//        int houseCapacity = buildings.stream()
-//                .filter(building -> building instanceof House)
-//                .map((house) -> ((House)house).getCapacity())
-//                .reduce(0, (a, b) -> a + b);
+        // int houseCapacity = buildings.stream()
+        // .filter(building -> building instanceof House)
+        // .map((house) -> ((House)house).getCapacity())
+        // .reduce(0, (a, b) -> a + b);
 
         List<House> houses = new ArrayList<>();
         for (Building building : buildings) {
