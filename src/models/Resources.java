@@ -49,8 +49,8 @@ public class Resources {
         return food;
     }
 
-    public void setFood(int food) {
-        this.food = food;
+    public void increaseFood(int food) {
+        this.food += food;
     }
 
     public int getIron() {
