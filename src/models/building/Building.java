@@ -2,7 +2,7 @@ package models.building;
 
 import models.Resources;
 
-abstract class Building {
+public abstract class Building {
 
     private Resources resourcesCost;
     private int improvement;

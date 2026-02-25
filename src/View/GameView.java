@@ -1,41 +1,42 @@
 package View;
 
+import models.Resources;
+import models.building.*;
+import models.units.Villagers;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import models.GameLoop;
-import models.Resources;
-import models.building.Farm;
-import models.building.House;
-import models.units.Villagers;
-
 public class GameView {
 
-    public static void menu(Scanner myScan, Resources resources, List<Villagers> villagers, List<House> houses) {
+    public static boolean menu(Scanner myScan, Resources resources, List<Villagers> villagers, List<Building> buildings) {
         boolean endTurn = false;
-        System.out.println(menuInfo(resources, villagers, houses));
-        int choice = myScan.nextInt();
-        while (!endTurn) {
+        do {
+            System.out.println(menuInfo(resources, villagers, buildings));
+            int choice = myScan.nextInt();
             switch (choice) {
                 case 1:
                     menuAssignate(myScan);
                     break;
                 case 2:
-                    menuCreateBuilding(myScan, resources);
+                    menuCreateBuilding(myScan, resources, buildings);
                     break;
                 case 3:
-                    GameLoop.recuitSoldier(resources,villagers);
-
-                case 4:
                     villagers.forEach((villager) -> {
                         villager.setAssignate(false);
                     });
                     endTurn = true;
                     break;
+                case 0:
+                    System.out.println("Aurevoir");
+                    return true;
                 default:
+                    System.out.println("Choix impossible");
                     break;
             }
-        }
+        } while (!endTurn);
+        return false;
     }
 
     // TODO : remplir les assignements possible avec les methodes de classes adaptés
@@ -54,31 +55,113 @@ public class GameView {
         }
     }
 
-    // TODO : remplir les creation de batiment possible avec les methodes de classes
-    // adaptés
-    private static void menuCreateBuilding(Scanner myScan, Resources ressources) {
+    private static void menuCreateBuilding(Scanner myScan, Resources ressources, List<Building> buildings) {
         System.out.println(menuCreateBuildingInfo());
+        boolean isContruct = false;
         int choiceCreation = myScan.nextInt();
         switch (choiceCreation) {
             case 1:
+                buildings.add(new House(ressources));
                 break;
             case 2:
-                new Farm(ressources);
+                for (Building building : buildings){
+                    if (building instanceof Farm) {
+                        isContruct = true;
+                        break;
+                    }
+                }
+                if (isContruct){
+                    System.out.println("Ferme déjà contruite");
+
+                }else {
+                    buildings.add(new Farm(ressources));
+                }
                 break;
             case 3:
+                for (Building building : buildings){
+                    if (building instanceof Mine) {
+                        isContruct = true;
+                        break;
+                    }
+                }
+                if (isContruct){
+                    System.out.println("Mine déjà contruite");
+
+                }else {
+                    buildings.add(new Mine(ressources));
+                }
+                break;
+            case 4:
+                for (Building building : buildings){
+                    if (building instanceof Barrack) {
+                        isContruct = true;
+                        break;
+                    }
+                }
+                if (isContruct){
+                    System.out.println("Caserne déjà contruite");
+
+                }else {
+                    buildings.add(new Barrack(ressources));
+                }
+                break;
+            case 5:
+                for (Building building : buildings){
+                    if (building instanceof Workshop) {
+                        isContruct = true;
+                        break;
+                    }
+                }
+                if (isContruct){
+                    System.out.println("Atelier déjà contruite");
+
+                }else {
+                    buildings.add(new Workshop(ressources));
+                }
+                break;
+            case 6:
+                for (Building building : buildings){
+                    if (building instanceof Wall) {
+                        isContruct = true;
+                        break;
+                    }
+                }
+                if (isContruct){
+                    System.out.println("Mur déjà contruite");
+
+                }else {
+                    buildings.add(new Wall(ressources));
+                }
+                break;
+            case 0:
                 break;
             default:
+                System.out.println("Choix impossible");
                 break;
         }
     }
 
-    private static String menuInfo(Resources resources, List<Villagers> villagers, List<House> houses) {
+    private static String menuInfo(Resources resources, List<Villagers> villagers, List<Building> buildings) {
 
-        int houseCapacity = houses.stream().map((house) -> house.getCapacity()).reduce(0, (a, b) -> a + b);
+//        int houseCapacity = buildings.stream()
+//                .filter(building -> building instanceof House)
+//                .map((house) -> ((House)house).getCapacity())
+//                .reduce(0, (a, b) -> a + b);
+
+        List<House> houses = new ArrayList<>();
+        for (Building building : buildings) {
+            if (building instanceof House) {
+                houses.add((House) building);
+            }
+        }
+        int houseCapacity = 0;
+        for (House house : houses) {
+            houseCapacity += house.getCapacity();
+        }
 
         return "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
                 + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood()
-                + " | population : " + villagers.size() + "/" + houses.size() * houseCapacity + "\n\n" +
+                + " | population : " + villagers.size() + "/" + houseCapacity + "\n\n" +
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
@@ -92,9 +175,14 @@ public class GameView {
         return "Menu assignate";
     }
 
-    // TODO : Remplir les possibilités au fur et a mesure pour la construction de
-    // batiment
     private static String menuCreateBuildingInfo() {
-        return "Menu bâtiment";
+        return "Menu bâtiment :\n" +
+                "1 - Créer une maison - 10 bois\n" +
+                "2 - Créer la ferme - 10 bois | 5 pierres\n" +
+                "3 - Créer la mine - 15 bois | 10 pierres\n" +
+                "4 - Créer la caserne - 20 bois | 10 pierres | 5 fers\n" +
+                "5 - Créer l'atelier - 20 bois | 10 pierres | 5 fer\n" +
+                "6 - Créer le mur - 10 bois | 20 pierres | 5 fer\n" +
+                "0 - Retour";
     }
 }
