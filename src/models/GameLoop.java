@@ -23,8 +23,8 @@ public class GameLoop {
         this.resources = new Resources(20, 10, 10, 0, 10);
         this.villagers = new ArrayList<>();
         villagers.add(new Villagers(resources));
-        this.houses = new ArrayList<>();
-        houses.add(new House(resources));
+        this.villages = new ArrayList<>();
+        villages.add(new House(resources));
     }
 
     public void gameLoop() {

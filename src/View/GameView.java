@@ -23,6 +23,8 @@ public class GameView {
                     menuCreateBuilding(myScan, resources, buildings);
                     break;
                 case 3:
+                    break;
+                case 9:
                     villagers.forEach((villager) -> {
                         villager.setAssignate(false);
                     });
@@ -165,8 +167,9 @@ public class GameView {
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
-                "3 - recruter un soldat\n\n" +
-                "4 - fin de tour\n\n" +
+                "3 - recruter un soldat\n" +
+                "9 - fin de tour\n" +
+                "0 - Quitter le jeu\n\n" +
                 "Votre choix : ";
     }
 
