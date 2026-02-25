@@ -1,26 +1,23 @@
 package models.building;
 
-import models.Resources;
 import models.tools.Tools;
 
-public class Workshop extends Building{
+public class Workshop extends Building {
 
-    int woodCost = 20;
-    int stoneCost = 10;
-    int ironCost = 5;
+    public static final int WOOD_COST = 20;
+    public static final int STONE_COST = 10;
+    public static final int IRON_COST = 5;
 
-    public Workshop(Resources resourcesCost) {
-        super(resourcesCost);
-        resourcesCost.decreaseWood(woodCost);
-        resourcesCost.decreaseStone(stoneCost);
-        resourcesCost.decreaseIron(ironCost);
+    public Workshop() {
+        this.setImprovement(1);
+
     }
 
-    public void createTool(){
+    public void createTool() {
         Tools tool = new Tools(10);
     }
 
-    public void createWeapon(){
+    public void createWeapon() {
         Tools weapon = new Tools(10);
     }
 
