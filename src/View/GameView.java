@@ -165,7 +165,8 @@ public class GameView {
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
-                "3 - fin de tour\n\n" +
+                "3 - recruter un soldat\n\n" +
+                "4 - fin de tour\n\n" +
                 "Votre choix : ";
     }
 
