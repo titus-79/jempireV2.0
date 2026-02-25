@@ -23,22 +23,33 @@ public class Resources {
     public void inceaseWood(int wood) {
         if (wood < 0) {
             System.out.println("valeur bois négative");
-        }else {
+        } else {
             this.wood += wood;
         }
     }
 
     public void decreaseWood(int wood) {
-        // if (wood < resourcePlayer) {
-        //     System.out.println("Vous n'avez pas assez de bois");
-        // }else {
-        //     this.wood -= wood;
-        // }
-        this.wood -= wood;
+        if (wood < this.wood) {
+            System.out.println("Vous n'avez pas assez de bois");
+        } else {
+            this.wood -= wood;
+        }
     }
 
     public int getStone() {
         return stone;
+    }
+
+    public void increaseStone(int stone) {
+        this.stone += stone;
+    }
+
+    public void decreaseStone(int stone) {
+        if (stone < this.stone) {
+            System.out.println("Vous n'avez pas assez de pierre");
+        } else {
+            this.stone -= stone;
+        }
     }
 
     public void increaseStone(int stone) {
@@ -61,6 +72,14 @@ public class Resources {
         this.food += food;
     }
 
+    public void decreaseFood(int food) {
+        if (food < this.food) {
+            System.out.println("Vous n'avez pas assez de nourriture");
+        } else {
+            this.food -= food;
+        }
+    }
+
     public int getIron() {
         return iron;
     }
@@ -69,12 +88,36 @@ public class Resources {
         this.iron += iron;
     }
 
+    public void increaseIron(int iron) {
+        this.iron += iron;
+    }
+
+    public void decreaseIron(int iron) {
+        if (iron < this.iron) {
+            System.out.println("Vous n'avez pas assez de fer");
+        } else {
+            this.iron -= iron;
+        }
+    }
+
     public int getGold() {
         return gold;
     }
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public void increaseGold(int gold) {
+        this.gold += gold;
+    }
+
+    public void decreaseGold(int gold) {
+        if (gold < this.gold) {
+            System.out.println("Vous n'avez pas assez d'or");
+        } else {
+            this.gold -= gold;
+        }
     }
 
 }
