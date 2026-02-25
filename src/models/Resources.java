@@ -52,18 +52,6 @@ public class Resources {
         }
     }
 
-    public void increaseStone(int stone) {
-        this.stone += stone;
-    }
-
-    public void decreaseStone(int stone) {
-        if (stone < this.stone) {
-            System.out.println("Vous n'avez pas assez de pierre");
-        } else {
-            this.stone -= stone;
-        }
-    }
-
     public int getFood() {
         return food;
     }
