@@ -1,6 +1,5 @@
 package models.building;
 
-
 import models.Resources;
 
 public class House extends Building {
