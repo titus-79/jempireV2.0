@@ -9,7 +9,7 @@ public class House extends Building {
     public House(Resources resourcesCost) {
         super(resourcesCost);
         this.setImprovement(1);
-        resourcesCost.decreaseWood(woodCost * this.getImprovement());
+        resourcesCost.decreaseWood(woodCost);
     }
 
     public int getCapacity() {

@@ -41,8 +41,16 @@ public class Resources {
         return stone;
     }
 
-    public void setStone(int stone) {
-        this.stone = stone;
+    public void increaseStone(int stone) {
+        this.stone += stone;
+    }
+
+    public void decreaseStone(int stone) {
+        if (stone < this.stone) {
+            System.out.println("Vous n'avez pas assez de pierre");
+        } else {
+            this.stone -= stone;
+        }
     }
 
     public int getFood() {
@@ -57,8 +65,8 @@ public class Resources {
         return iron;
     }
 
-    public void setIron(int iron) {
-        this.iron = iron;
+    public void increasedIron(int iron) {
+        this.iron += iron;
     }
 
     public int getGold() {
