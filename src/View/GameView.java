@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import models.Resources;
+import models.building.Farm;
 import models.building.House;
 import models.units.Villagers;
 
@@ -17,7 +18,7 @@ public class GameView {
                 menuAssignate(myScan);
                 break;
             case 2:
-                menuCreateBuilding(myScan);
+                menuCreateBuilding(myScan, resources);
                 break;
             case 3:
                 break;
@@ -44,13 +45,14 @@ public class GameView {
 
     // TODO : remplir les creation de batiment possible avec les methodes de classes
     // adaptés
-    private static void menuCreateBuilding(Scanner myScan) {
+    private static void menuCreateBuilding(Scanner myScan, Resources ressources) {
         System.out.println(menuCreateBuildingInfo());
         int choiceCreation = myScan.nextInt();
         switch (choiceCreation) {
             case 1:
                 break;
             case 2:
+                new Farm(ressources);
                 break;
             case 3:
                 break;
