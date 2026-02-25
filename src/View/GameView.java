@@ -3,6 +3,7 @@ package View;
 import java.util.List;
 import java.util.Scanner;
 
+import models.GameLoop;
 import models.Resources;
 import models.building.Farm;
 import models.building.House;
@@ -14,7 +15,7 @@ public class GameView {
         boolean endTurn = false;
         System.out.println(menuInfo(resources, villagers, houses));
         int choice = myScan.nextInt();
-        while (!endTurn){
+        while (!endTurn) {
             switch (choice) {
                 case 1:
                     menuAssignate(myScan);
@@ -23,7 +24,12 @@ public class GameView {
                     menuCreateBuilding(myScan, resources);
                     break;
                 case 3:
-                    villagers.forEach((villager) -> {villager.setAssignate(false);});
+                    GameLoop.recuitSoldier(resources,villagers);
+
+                case 4:
+                    villagers.forEach((villager) -> {
+                        villager.setAssignate(false);
+                    });
                     endTurn = true;
                     break;
                 default:
@@ -36,16 +42,16 @@ public class GameView {
     private static void menuAssignate(Scanner myScan) {
         System.out.println(menuAssignateInfo());
         int choiceAssignate = myScan.nextInt();
-            switch (choiceAssignate) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                    break;
-            }
+        switch (choiceAssignate) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
 
     // TODO : remplir les creation de batiment possible avec les methodes de classes
@@ -76,7 +82,8 @@ public class GameView {
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
-                "3 - fin de tour\n\n" +
+                "3 - recruter un soldat\n\n" +
+                "4 - fin de tour\n\n" +
                 "Votre choix : ";
     }
 
