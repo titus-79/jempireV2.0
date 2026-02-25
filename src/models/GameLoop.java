@@ -1,7 +1,9 @@
 package models;
 
+import models.building.House;
 import models.units.Villagers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,71 +15,84 @@ public class GameLoop {
     private boolean defeat = false;
     private Scanner myScan = new Scanner(System.in);
     private List<Villagers> villagers;
+    private List<House> houses;
 
-    public GameLoop(Resources resources, List<Villagers> villagers) {
-        this.resources = resources;
-        this.villagers = villagers;
+    public GameLoop() {
+        this.resources = new Resources(15, 10, 10, 0, 10);
+        this.villagers = new ArrayList<>();
+        villagers.add(new Villagers());
+        this.houses = new ArrayList<>();
+        houses.add(new House(resources));
     }
 
-    public void gameLoop(){
-
-        while (!victory || !defeat){
+    public void gameLoop() {
+        while (!victory || !defeat) {
             menu(myScan);
         }
-
     }
 
-    public void menu(Scanner myScan){
+    public void buildHouse() {
+        if (resources.getWood() >= 10) {
+            houses.add(new House(resources));
+        } else {
+            System.out.println("Pas assez de bois !");
+        }
+    }
+
+    public void menu(Scanner myScan) {
         System.out.println(menuInfo());
         int choice = myScan.nextInt();
-        switch (choice){
-            case 1 :
+        switch (choice) {
+            case 1:
                 menuAssignate(myScan);
                 break;
-            case 2 :
+            case 2:
                 menuCreateBuilding(myScan);
                 break;
-            case 3 :
+            case 3:
                 break;
-            default :
+            default:
                 break;
         }
     }
 
-    // TODO  : remplir les assignements possible avec les methodes de classes adaptés
-    private void menuAssignate(Scanner myScan){
+    // TODO : remplir les assignements possible avec les methodes de classes adaptés
+    private void menuAssignate(Scanner myScan) {
         System.out.println(menuAssignateInfo());
         int choiceAssignate = myScan.nextInt();
-        switch (choiceAssignate){
-            case 1 :
+        switch (choiceAssignate) {
+            case 1:
                 break;
-            case 2 :
+            case 2:
                 break;
-            case 3 :
+            case 3:
                 break;
-            default :
+            default:
                 break;
         }
     }
 
-    // TODO  : remplir les creation de batiment possible avec les methodes de classes adaptés
-    private void menuCreateBuilding(Scanner myScan){
+    // TODO : remplir les creation de batiment possible avec les methodes de classes
+    // adaptés
+    private void menuCreateBuilding(Scanner myScan) {
         System.out.println(menuCreateBuildingInfo());
         int choiceCreation = myScan.nextInt();
-        switch (choiceCreation){
-            case 1 :
+        switch (choiceCreation) {
+            case 1:
                 break;
-            case 2 :
+            case 2:
                 break;
-            case 3 :
+            case 3:
                 break;
-            default :
+            default:
                 break;
         }
     }
 
     private String menuInfo() {
-        return "Ressources | " + "Bois : " +resources.getWood() + " | Pierre : "+resources.getStone() + " | Fer : " + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood() + " | population : " + villagers.size()+ "\n\n" +
+        return "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
+                + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood()
+                + " | population : " + villagers.size() + "/" + houses.size() * 2 + "\n\n" +
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
@@ -90,7 +105,8 @@ public class GameLoop {
         return "";
     }
 
-    // TODO : Remplir les possibilités au fur et a mesure pour la construction de batiment
+    // TODO : Remplir les possibilités au fur et a mesure pour la construction de
+    // batiment
     private String menuCreateBuildingInfo() {
         return "";
     }
