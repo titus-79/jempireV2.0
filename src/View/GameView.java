@@ -11,19 +11,24 @@ import models.units.Villagers;
 public class GameView {
 
     public static void menu(Scanner myScan, Resources resources, List<Villagers> villagers, List<House> houses) {
+        boolean endTurn = false;
         System.out.println(menuInfo(resources, villagers, houses));
         int choice = myScan.nextInt();
-        switch (choice) {
-            case 1:
-                menuAssignate(myScan);
-                break;
-            case 2:
-                menuCreateBuilding(myScan, resources);
-                break;
-            case 3:
-                break;
-            default:
-                break;
+        while (!endTurn){
+            switch (choice) {
+                case 1:
+                    menuAssignate(myScan);
+                    break;
+                case 2:
+                    menuCreateBuilding(myScan, resources);
+                    break;
+                case 3:
+                    villagers.forEach((villager) -> {villager.setAssignate(false);});
+                    endTurn = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -31,16 +36,16 @@ public class GameView {
     private static void menuAssignate(Scanner myScan) {
         System.out.println(menuAssignateInfo());
         int choiceAssignate = myScan.nextInt();
-        switch (choiceAssignate) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
+            switch (choiceAssignate) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
     }
 
     // TODO : remplir les creation de batiment possible avec les methodes de classes
@@ -77,12 +82,12 @@ public class GameView {
 
     // TODO : Remplir les possibilités au fur et a mesure pour les assignements
     private static String menuAssignateInfo() {
-        return "";
+        return "Menu assignate";
     }
 
     // TODO : Remplir les possibilités au fur et a mesure pour la construction de
     // batiment
     private static String menuCreateBuildingInfo() {
-        return "";
+        return "Menu bâtiment";
     }
 }

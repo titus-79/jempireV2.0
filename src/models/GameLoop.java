@@ -28,8 +28,11 @@ public class GameLoop {
     }
 
     public void gameLoop() {
+        int turn = 1;
         while (!victory || !defeat) {
+            System.out.println("Tour " + turn);
             GameView.menu(myScan, resources, villagers, houses);
+            turn++;
         }
     }
 
