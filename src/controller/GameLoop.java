@@ -23,7 +23,7 @@ public class GameLoop {
     private List<Building> constructionList;
 
     public GameLoop() {
-        this.resources = new Resources(500, 500, 1, 500, 500);
+        this.resources = new Resources(500, 500, 500, 500, 500);
         this.recruit = new ArrayList<>();
         this.constructionList = new ArrayList<>();
         this.units = new ArrayList<>();

@@ -10,10 +10,10 @@ public class UnitService {
 
     public static Villagers recruitVillagers(Resources resources) {
         if (resources.getFood() < Villagers.FOOD_COST) {
-            System.out.println("Pas assez de bois !");
+            System.out.println("Pas assez de kebab !");
             return null;
         }
-        resources.decreaseWood(Villagers.FOOD_COST);
+        resources.decreaseFood(Villagers.FOOD_COST);
         return new Villagers();
     }
 
