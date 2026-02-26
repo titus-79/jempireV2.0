@@ -1,16 +1,11 @@
 package models.units;
 
-import models.Resources;
-
 public class Villagers extends Unit {
 
-    private int foodCost = 5;
+    public static final int FOOD_COST = 5;
 
-    public Villagers(Resources resourcesCost) {
-        super(resourcesCost);
+    public Villagers() {
         this.setImprovement(1);
-        resourcesCost.decreaseWood(foodCost);
     }
 
-   
 }

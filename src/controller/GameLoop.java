@@ -3,7 +3,7 @@ package controller;
 import models.Resources;
 import models.building.Building;
 import models.building.House;
-import models.units.Soldier;
+import models.units.Unit;
 import models.units.Villagers;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ public class GameLoop {
     private int loopOfGame;
     private Resources resources;
     private Scanner myScan = new Scanner(System.in);
-    private List<Villagers> villagers;
+    private List<Unit> units;
     private List<Building> villages;
 
     public GameLoop() {
-        this.resources = new Resources(50, 10, 10, 0, 10);
-        this.villagers = new ArrayList<>();
-        villagers.add(new Villagers(resources));
+        this.resources = new Resources(500, 500, 500, 500, 500);
+        this.units = new ArrayList<>();
+        units.add(new Villagers());
         this.villages = new ArrayList<>();
         villages.add(new House());
     }
@@ -33,7 +33,7 @@ public class GameLoop {
         boolean finish = false;
         while (!finish){
             System.out.println("Tour " + turn);
-            finish = GameView.menu(myScan, resources, villagers, villages);
+            finish = GameView.menu(myScan, resources, units, villages);
             turn++;
         }
     }

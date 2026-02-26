@@ -2,6 +2,7 @@ package View;
 
 import models.Resources;
 import models.building.*;
+import models.units.Unit;
 import models.units.Villagers;
 
 import java.util.ArrayList;
@@ -10,26 +11,28 @@ import java.util.Scanner;
 
 import controller.BuildingService;
 import controller.GameLoop;
+import controller.UnitService;
 
 public class GameView {
 
-    public static boolean menu(Scanner myScan, Resources resources, List<Villagers> villagers,
+    public static boolean menu(Scanner myScan, Resources resources, List<Unit> units,
             List<Building> buildings) {
         boolean endTurn = false;
         do {
-            System.out.println(menuInfo(resources, villagers, buildings));
+            System.out.println(menuInfo(resources, units, buildings));
             int choice = myScan.nextInt();
             switch (choice) {
                 case 1:
-                    menuAssignate(myScan);
+                    menuAssignate(myScan, resources, units, buildings);
                     break;
                 case 2:
                     menuCreateBuilding(myScan, resources, buildings);
                     break;
                 case 3:
+                    menuRecruitUnit(myScan, resources, units, buildings);
                     break;
                 case 9:
-                    villagers.forEach((villager) -> {
+                    units.forEach((villager) -> {
                         villager.setAssignate(false);
                     });
                     endTurn = true;
@@ -46,7 +49,9 @@ public class GameView {
     }
 
     // TODO : remplir les assignements possible avec les methodes de classes adaptés
-    private static void menuAssignate(Scanner myScan) {
+    private static void menuAssignate(Scanner myScan, Resources resources, List<Unit> units,
+            List<Building> buildings) {
+
         System.out.println(menuAssignateInfo());
         int choiceAssignate = myScan.nextInt();
         switch (choiceAssignate) {
@@ -165,7 +170,7 @@ public class GameView {
         }
     }
 
-    private static String menuInfo(Resources resources, List<Villagers> villagers, List<Building> buildings) {
+    private static String menuInfo(Resources resources, List<Unit> units, List<Building> buildings) {
 
         // int houseCapacity = buildings.stream()
         // .filter(building -> building instanceof House)
@@ -185,11 +190,11 @@ public class GameView {
 
         return "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
                 + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood()
-                + " | population : " + villagers.size() + "/" + houseCapacity + "\n\n" +
+                + " | population : " + units.size() + "/" + houseCapacity + "\n\n" +
                 "Menu \n\n" +
                 "1 - assigné vilageois\n" +
                 "2 - Créer un batiment\n" +
-                "3 - recruter un soldat\n" +
+                "3 - recruter une Unité\n" +
                 "9 - fin de tour\n" +
                 "0 - Quitter le jeu\n\n" +
                 "Votre choix : ";
@@ -197,7 +202,7 @@ public class GameView {
 
     // TODO : Remplir les possibilités au fur et a mesure pour les assignements
     private static String menuAssignateInfo() {
-        return "Menu assignate";
+        return "Menu assignate :\n";
     }
 
     private static String menuCreateBuildingInfo() {
@@ -209,5 +214,61 @@ public class GameView {
                 "5 - Créer l'atelier - 20 bois | 10 pierres | 5 fer\n" +
                 "6 - Créer le mur - 10 bois | 20 pierres | 5 fer\n" +
                 "0 - Retour";
+    }
+
+    private static String menuRecruitUnitInfo() {
+        return "Menu Recrutement :\n" +
+                "1 - Recruter un villageois - " + Villagers.FOOD_COST + " nourritures\n" +
+                "0 - Retour";
+    }
+
+    private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units,
+            List<Building> buildings) {
+        List<House> houses = new ArrayList<>();
+        for (Building building : buildings) {
+            if (building instanceof House) {
+                houses.add((House) building);
+            }
+        }
+        int houseCapacity = 0;
+        for (House house : houses) {
+            houseCapacity += house.getCapacity();
+        }
+        System.out.println(menuRecruitUnitInfo());
+        int choiceRecruit = myScan.nextInt();
+        switch (choiceRecruit) {
+            case 1:
+                if (units.size() >= houseCapacity) {
+                    System.out
+                            .println(
+                                    "Vous n'avez plus de place dans les maisons pour recruter un nouveau villageois.\n");
+                    break;
+                }
+                Unit villager = UnitService.recruitVillagers(resources);
+                if (villager != null) {
+                    units.add(villager);
+                }
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Choix impossible");
+                break;
+        }
     }
 }
