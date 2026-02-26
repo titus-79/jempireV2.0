@@ -3,6 +3,7 @@ package View;
 import models.Resources;
 import models.building.*;
 import models.units.Craftsman;
+import models.units.Soldier;
 import models.units.Unit;
 import models.units.Villagers;
 
@@ -221,6 +222,7 @@ public class GameView {
         return "Menu Recrutement :\n" +
                 "1 - Recruter un villageois - " + Villagers.FOOD_COST + " nourritures\n" +
                 "2 - Recruter un artisan - " + Craftsman.FOOD_COST + " nourritures | " + Craftsman.WOOD_COST + " bois | " + Craftsman.IRON_COST + " fer\n" +
+                "3 - Recruter un soldat - " + Soldier.FOOD_COST + " nourritures | " + Soldier.WOOD_COST + " bois | " + Soldier.IRON_COST + " fer\n" +
 
                 "0 - Retour";
     }
@@ -228,6 +230,7 @@ public class GameView {
     private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units,
             List<Building> buildings) {
         List<House> houses = new ArrayList<>();
+        boolean isConstruct = false;
         for (Building building : buildings) {
             if (building instanceof House) {
                 houses.add((House) building);
@@ -266,7 +269,17 @@ public class GameView {
 
                 break;
             case 3:
-
+                for (Building building : buildings) {
+                    if (building instanceof Barrack) {
+                        isConstruct = true;
+                        Unit soldier = UnitService.recruitSoldier(resources);
+                        if (soldier != null) {
+                            units.add(soldier);
+                        }
+                    } else {
+                        System.out.println("Vous n'avez pas de caserne !!\n");
+                    }
+                }
                 break;
             case 4:
 
