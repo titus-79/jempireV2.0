@@ -2,6 +2,7 @@ package View;
 
 import models.Resources;
 import models.building.*;
+import models.units.Craftsman;
 import models.units.Unit;
 import models.units.Villagers;
 
@@ -219,6 +220,8 @@ public class GameView {
     private static String menuRecruitUnitInfo() {
         return "Menu Recrutement :\n" +
                 "1 - Recruter un villageois - " + Villagers.FOOD_COST + " nourritures\n" +
+                "2 - Recruter un artisan - " + Craftsman.FOOD_COST + " nourritures | " + Craftsman.WOOD_COST + " bois | " + Craftsman.IRON_COST + " fer\n" +
+
                 "0 - Retour";
     }
 
@@ -250,6 +253,16 @@ public class GameView {
                 }
                 break;
             case 2:
+                if (units.size() >= houseCapacity) {
+                    System.out
+                            .println(
+                                    "Vous n'avez plus de place dans les maisons pour recruter un nouveau villageois.\n");
+                    break;
+                }
+                Unit craftsman = UnitService.recruitCraftsman(resources);
+                if (craftsman != null) {
+                    units.add(craftsman);
+                }
 
                 break;
             case 3:
