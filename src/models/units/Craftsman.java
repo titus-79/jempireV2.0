@@ -1,18 +1,12 @@
 package models.units;
 
-import models.Resources;
-
 public class Craftsman extends Unit {
 
-    private int foodCost = 15;
-    private int woodCost = 10;
-    private int ironCost = 10;
+    public static final int WOOD_COST = 10;
+    public static final int FOOD_COST = 15;
+    public static final int IRON_COST = 10;
 
-    public Craftsman(Resources resourcesCost) {
-        super(resourcesCost);
+    public Craftsman() {
         this.setImprovement(1);
-        resourcesCost.decreaseWood(woodCost);
-        resourcesCost.decreaseStone(foodCost);
-        resourcesCost.decreaseIron(ironCost);
     }
 }

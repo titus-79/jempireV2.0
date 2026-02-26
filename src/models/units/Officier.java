@@ -1,20 +1,16 @@
 package models.units;
 
-import models.Resources;
-
 public class Officier extends Soldier {
 
-    private int foodCost = 15;
-    private int goldCost = 20;
     private int maxHealth = 20;
 
-    public Officier(Resources resourcesCost) {
-        super(resourcesCost);
+    public static final int FOOD_COST = 15;
+    public static final int GOLD_COST = 20;
+
+    public Officier() {
         this.setImprovement(1);
         this.setMaxHealth(maxHealth);
         this.setHealth(maxHealth);
-        resourcesCost.decreaseFood(foodCost);
-        resourcesCost.decreaseGold(goldCost);
     }
 
 }

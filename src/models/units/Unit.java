@@ -5,7 +5,7 @@ import java.util.List;
 import models.Resources;
 import models.tools.Tools;
 
-abstract class Unit {
+public abstract class Unit {
     private String name;
     private String surname;
     private static final List<String> villagersName = List.of(
@@ -28,11 +28,10 @@ abstract class Unit {
     private int maxHealth = 10 * improvement;
     private List<Tools> tools;
 
-    public Unit(Resources resourcesCost) {
+    public Unit() {
         generateName();
         this.assignate = false;
         this.health = maxHealth;
-        this.resourcesCost = resourcesCost;
         System.out.println("Nouveau villageois : " + name + " " + surname + " | vie : " + health + " / " + maxHealth);
     }
 
