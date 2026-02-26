@@ -16,20 +16,20 @@ import controller.UnitService;
 public class GameView {
 
     public static boolean menu(Scanner myScan, Resources resources, List<Unit> units,
-            List<Building> buildings) {
+            List<Building> buildings , List<Unit> recruit , List<Building> constructionList) {
         boolean endTurn = false;
         do {
-            System.out.println(menuInfo(resources, units, buildings));
+            System.out.println(menuInfo(resources, units, buildings , recruit , constructionList));
             int choice = myScan.nextInt();
             switch (choice) {
                 case 1:
                     menuAssignate(myScan, resources, units, buildings);
                     break;
                 case 2:
-                    menuCreateBuilding(myScan, resources, buildings);
+                    menuCreateBuilding(myScan, resources, buildings , constructionList);
                     break;
                 case 3:
-                    menuRecruitUnit(myScan, resources, units, buildings);
+                    menuRecruitUnit(myScan, resources, units, buildings , recruit);
                     break;
                 case 9:
                     units.forEach((villager) -> {
@@ -66,7 +66,7 @@ public class GameView {
         }
     }
 
-    private static void menuCreateBuilding(Scanner myScan, Resources resources, List<Building> buildings) {
+    private static void menuCreateBuilding(Scanner myScan, Resources resources, List<Building> buildings, List<Building> listConstruction) {
         System.out.println(menuCreateBuildingInfo());
         boolean isContruct = false;
         int choiceCreation = myScan.nextInt();
@@ -74,7 +74,7 @@ public class GameView {
             case 1:
                 House house = BuildingService.buildHouse(resources);
                 if (house != null) {
-                    buildings.add(house);
+                    listConstruction.add(house);
                 }
                 break;
             case 2:
@@ -90,7 +90,7 @@ public class GameView {
                 } else {
                     Farm farm = BuildingService.buildFarm(resources);
                     if (farm != null) {
-                        buildings.add(farm);
+                        listConstruction.add(farm);
                     }
                 }
                 break;
@@ -107,7 +107,7 @@ public class GameView {
                 } else {
                     Mine mine = BuildingService.buildMine(resources);
                     if (mine != null) {
-                        buildings.add(mine);
+                        listConstruction.add(mine);
                     }
                 }
                 break;
@@ -124,7 +124,7 @@ public class GameView {
                 } else {
                     Barrack barrack = BuildingService.buildBarrack(resources);
                     if (barrack != null) {
-                        buildings.add(barrack);
+                        listConstruction.add(barrack);
                     }
                 }
                 break;
@@ -141,7 +141,7 @@ public class GameView {
                 } else {
                     Workshop workshop = BuildingService.buildWorkshop(resources);
                     if (workshop != null) {
-                        buildings.add(workshop);
+                        listConstruction.add(workshop);
                     }
                 }
                 break;
@@ -158,7 +158,7 @@ public class GameView {
                 } else {
                     Wall wall = BuildingService.buildWall(resources);
                     if (wall != null) {
-                        buildings.add(wall);
+                        listConstruction.add(wall);
                     }
                 }
                 break;
@@ -170,8 +170,10 @@ public class GameView {
         }
     }
 
-    private static String menuInfo(Resources resources, List<Unit> units, List<Building> buildings) {
+    private static String menuInfo(Resources resources, List<Unit> units, List<Building> buildings, List<Unit> recruit, List<Building> constructionList) {
 
+
+        StringBuilder infoListConstruct = new StringBuilder();
         // int houseCapacity = buildings.stream()
         // .filter(building -> building instanceof House)
         // .map((house) -> ((House)house).getCapacity())
@@ -188,7 +190,12 @@ public class GameView {
             houseCapacity += house.getCapacity();
         }
 
-        return "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
+       for (Building building : constructionList){
+           infoListConstruct.append(building.getName()).append(", ");
+       }
+
+        return "Liste de construction : " + infoListConstruct + "\n"+
+                "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
                 + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood()
                 + " | population : " + units.size() + "/" + houseCapacity + "\n\n" +
                 "Menu \n\n" +
@@ -222,8 +229,7 @@ public class GameView {
                 "0 - Retour";
     }
 
-    private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units,
-            List<Building> buildings) {
+    private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units, List<Building> buildings , List<Unit> recruit) {
         List<House> houses = new ArrayList<>();
         for (Building building : buildings) {
             if (building instanceof House) {

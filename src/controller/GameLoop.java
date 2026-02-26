@@ -19,9 +19,13 @@ public class GameLoop {
     private Scanner myScan = new Scanner(System.in);
     private List<Unit> units;
     private List<Building> villages;
+    private List<Unit> recruit;
+    private List<Building> constructionList;
 
     public GameLoop() {
-        this.resources = new Resources(500, 500, 500, 500, 500);
+        this.resources = new Resources(500, 500, 1, 500, 500);
+        this.recruit = new ArrayList<>();
+        this.constructionList = new ArrayList<>();
         this.units = new ArrayList<>();
         units.add(new Villagers());
         this.villages = new ArrayList<>();
@@ -31,21 +35,33 @@ public class GameLoop {
     public void gameLoop() {
         int turn = 1;
         boolean finish = false;
-        while (!finish){
+        while (!finish) {
             System.out.println("Tour " + turn);
-            finish = GameView.menu(myScan, resources, units, villages);
+            finish = GameView.menu(myScan, resources, units, villages, recruit, constructionList);
+            if ( resources.getFood() > 0){
+                endTurnMethod();
+            }else {
+                System.out.println("Pas assez de nourriture - vous avez perdu");
+                finish = true;
+            }
             turn++;
         }
     }
 
-    public static void recuitSoldier(Resources resources, List<Villagers> villagers) {
-        // TODO Méthodes pour polymorpher une instance vilageois en soldat
-        // if (resources.getFood() >= 5 && resources.getWood() >= 5 && resources.getIron() >= 10) {
-        //     List<Villagers> villagersVoluntary = villagers.map((Villagers villager) -> villager.isAssignate == false);
-        //     villagers.add(new Soldier(resources));
-        // } else {
-        //     System.out.println("Pas assez de ressources !");
-        // }
+    public void endTurnMethod() {
+        if (resources.getFood() < units.size()) {
+            int rest = units.size() - resources.getFood();
+            for (int i = 0; i < rest; i++) {
+                units.removeLast();
+            }
+            resources.setFood(0);
+        } else {
+            resources.decreaseFood(units.size());
+        }
+        units.addAll(recruit);
+        villages.addAll(constructionList);
+        recruit.clear();
+        constructionList.clear();
     }
 
 }

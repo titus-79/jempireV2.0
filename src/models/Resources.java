@@ -68,6 +68,10 @@ public class Resources {
         }
     }
 
+    public void setFood(int food){
+        this.food = food;
+    }
+
     public int getIron() {
         return iron;
     }
