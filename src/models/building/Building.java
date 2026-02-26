@@ -29,4 +29,8 @@ public abstract class Building {
     public void setImprovement(int improvement) {
         this.improvement = improvement;
     }
+
+    public String getName(){
+        return this.getClass().getSimpleName();
+    }
 }
