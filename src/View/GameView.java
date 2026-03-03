@@ -3,6 +3,7 @@ package View;
 import models.Resources;
 import models.building.*;
 import models.units.Craftsman;
+import models.units.Officier;
 import models.units.Soldier;
 import models.units.Unit;
 import models.units.Villagers;
@@ -18,20 +19,20 @@ import controller.UnitService;
 public class GameView {
 
     public static boolean menu(Scanner myScan, Resources resources, List<Unit> units,
-            List<Building> buildings , List<Unit> recruit , List<Building> constructionList) {
+            List<Building> buildings, List<Unit> recruit, List<Building> constructionList) {
         boolean endTurn = false;
         do {
-            System.out.println(menuInfo(resources, units, buildings , recruit , constructionList));
+            System.out.println(menuInfo(resources, units, buildings, recruit, constructionList));
             int choice = myScan.nextInt();
             switch (choice) {
                 case 1:
                     menuAssignate(myScan, resources, units, buildings);
                     break;
                 case 2:
-                    menuCreateBuilding(myScan, resources, buildings , constructionList);
+                    menuCreateBuilding(myScan, resources, buildings, constructionList);
                     break;
                 case 3:
-                    menuRecruitUnit(myScan, resources, units, buildings , recruit);
+                    menuRecruitUnit(myScan, resources, units, buildings, recruit);
                     break;
                 case 9:
                     units.forEach((villager) -> {
@@ -68,7 +69,8 @@ public class GameView {
         }
     }
 
-    private static void menuCreateBuilding(Scanner myScan, Resources resources, List<Building> buildings, List<Building> listConstruction) {
+    private static void menuCreateBuilding(Scanner myScan, Resources resources, List<Building> buildings,
+            List<Building> listConstruction) {
         System.out.println(menuCreateBuildingInfo());
         boolean isContruct = false;
         int choiceCreation = myScan.nextInt();
@@ -172,8 +174,8 @@ public class GameView {
         }
     }
 
-    private static String menuInfo(Resources resources, List<Unit> units, List<Building> buildings, List<Unit> recruit, List<Building> constructionList) {
-
+    private static String menuInfo(Resources resources, List<Unit> units, List<Building> buildings, List<Unit> recruit,
+            List<Building> constructionList) {
 
         StringBuilder infoListConstruct = new StringBuilder();
         // int houseCapacity = buildings.stream()
@@ -192,11 +194,11 @@ public class GameView {
             houseCapacity += house.getCapacity();
         }
 
-       for (Building building : constructionList){
-           infoListConstruct.append(building.getName()).append(", ");
-       }
+        for (Building building : constructionList) {
+            infoListConstruct.append(building.getName()).append(", ");
+        }
 
-        return "Liste de construction : " + infoListConstruct + "\n"+
+        return "Liste de construction : " + infoListConstruct + "\n" +
                 "Ressources | " + "Bois : " + resources.getWood() + " | Pierre : " + resources.getStone() + " | Fer : "
                 + resources.getIron() + " | Or : " + resources.getGold() + " | Nourritures : " + resources.getFood()
                 + " | population : " + units.size() + "/" + houseCapacity + "\n\n" +
@@ -228,13 +230,17 @@ public class GameView {
     private static String menuRecruitUnitInfo() {
         return "Menu Recrutement :\n" +
                 "1 - Recruter un villageois - " + Villagers.FOOD_COST + " nourritures\n" +
-                "2 - Recruter un artisan - " + Craftsman.FOOD_COST + " nourritures | " + Craftsman.WOOD_COST + " bois | " + Craftsman.IRON_COST + " fer\n" +
-                "3 - Recruter un soldat - " + Soldier.FOOD_COST + " nourritures | " + Soldier.WOOD_COST + " bois | " + Soldier.IRON_COST + " fer\n" +
+                "2 - Recruter un artisan - " + Craftsman.FOOD_COST + " nourritures | " + Craftsman.WOOD_COST
+                + " bois | " + Craftsman.IRON_COST + " fer\n" +
+                "3 - Recruter un soldat - " + Soldier.FOOD_COST + " nourritures | " + Soldier.WOOD_COST + " bois | "
+                + Soldier.IRON_COST + " fer\n" +
+                "4 - Recruter un officier - " + Officier.FOOD_COST + " nourritures | " + Officier.GOLD_COST + " or\n" +
 
                 "0 - Retour";
     }
 
-    private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units, List<Building> buildings , List<Unit> recruit) {
+    private static void menuRecruitUnit(Scanner myScan, Resources resources, List<Unit> units, List<Building> buildings,
+            List<Unit> recruit) {
         List<House> houses = new ArrayList<>();
         boolean isConstruct = false;
         for (Building building : buildings) {
@@ -278,22 +284,32 @@ public class GameView {
                 for (Building building : buildings) {
                     if (building instanceof Barrack) {
                         isConstruct = true;
-                        Unit soldier = UnitService.recruitSoldier(resources);
-                        if (soldier != null) {
-                            units.add(soldier);
+                    }
+                }
+                if (isConstruct) {
+                    Unit soldier = UnitService.recruitSoldier(resources);
+                    if (soldier != null) {
+                        units.add(soldier);
+                    }
+                } else {
+                    System.out.println("Vous n'avez pas de caserne !!\n");
+                }
+                break;
+            case 4:
+                for (Building building : buildings) {
+                    if (building instanceof Barrack) {
+                        isConstruct = true;
+
+                    }
+                    if (isConstruct) {
+                        Unit Officier = UnitService.recruitOfficier(resources);
+                        if (Officier != null) {
+                            units.add(Officier);
                         }
                     } else {
                         System.out.println("Vous n'avez pas de caserne !!\n");
                     }
                 }
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
 
                 break;
             case 0:

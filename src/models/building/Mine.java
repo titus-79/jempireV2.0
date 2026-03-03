@@ -16,6 +16,6 @@ public class Mine extends Building {
     }
 
     public void SetRessourceIron() {
-        getResourcesCost().increasedIron(IRON_PRODUCT);
+        getResourcesCost().increaseIron(IRON_PRODUCT);
     }
 }
