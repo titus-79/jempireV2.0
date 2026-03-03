@@ -2,6 +2,7 @@ package controller;
 
 import models.Resources;
 import models.units.Craftsman;
+import models.units.Officier;
 import models.units.Soldier;
 import models.units.Unit;
 import models.units.Villagers;
@@ -30,7 +31,7 @@ public class UnitService {
         return new Craftsman();
     }
 
-        public static Soldier recruitSoldier(Resources resources) {
+    public static Soldier recruitSoldier(Resources resources) {
         if (resources.getFood() < Soldier.FOOD_COST || resources.getWood() < Soldier.WOOD_COST
                 || resources.getIron() < Soldier.IRON_COST) {
             System.out.println("Pas assez de ressources !");
@@ -42,5 +43,16 @@ public class UnitService {
 
         return new Soldier();
     }
-    
+
+    public static Officier recruitOfficier(Resources resources) {
+        if (resources.getFood() < Officier.FOOD_COST || resources.getGold() < Officier.GOLD_COST) {
+            System.out.println("Pas assez de ressources !");
+            return null;
+        }
+        resources.decreaseFood(Officier.FOOD_COST);
+        resources.decreaseGold(Officier.GOLD_COST);
+
+        return new Officier();
+    }
+
 }

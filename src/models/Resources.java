@@ -76,9 +76,9 @@ public class Resources {
         return iron;
     }
 
-    public void increasedIron(int iron) {
-        this.iron += iron;
-    }
+    // public void increasedIron(int iron) {
+    //     this.iron += iron;
+    // }
 
     public void increaseIron(int iron) {
         this.iron += iron;
